@@ -1,6 +1,6 @@
-# 🤖 Portfolio Chatbot — Local RAG Assistant with Llama 3.2 + Ollama
+# 🤖 Portfolio Chatbot — Local RAG Assistant with Llama 3.2 3B + Llama-3.1-8B
 
-A persona-driven, retrieval-augmented chatbot that sits on my portfolio site and speaks on my behalf to recruiters and visitors — answering questions about my projects, skills, and experience using only a curated knowledge base, with guardrails against off-topic, sensitive, or adversarial prompts. Runs entirely locally on Llama 3.2 via Ollama, with no external API calls or hosting cost.
+A persona-driven, retrieval-augmented chatbot that sits on my portfolio site and speaks on my behalf to recruiters and visitors — answering questions about my projects, skills, and experience using only a curated knowledge base, with guardrails against off-topic, sensitive, or adversarial prompts. Runs entirely locally on Llama 3.2 + Llama-3.1-8B via Ollama, with no external API calls or hosting cost.
 
 ---
 
@@ -29,7 +29,7 @@ The bot is intentionally one-directional: it's built to advocate for me to recru
 
 **5. Persona-grounded generation.** Retrieved chunks are injected as context into a strict system prompt that defines tone (professional, confident, a little playful), point of view (always third person — "He built...", never "I built..."), and a set of hard boundaries the model must hold to regardless of how a question is phrased.
 
-**6. Local inference.** The assembled prompt is sent to a locally-running **Llama 3.2** model through **Ollama's OpenAI-compatible API**, using the standard `openai` Python client pointed at `localhost:11434` — so the whole thing runs offline, with the option to swap to a hosted model later by just changing the base URL.
+**6. Local inference.** The assembled prompt is sent to a locally-running **Llama 3.2** & **Llama-3.1-8B** model through **Ollama's OpenAI-compatible API**, using the standard `openai` Python client pointed at `localhost:11434` — so the whole thing runs offline, with the option to swap to a hosted model later by just changing the base URL.
 
 ---
 
@@ -52,7 +52,7 @@ This was deliberately tested with a set of adversarial prompts (salary questions
 - **Python** (Jupyter Notebook) — development and experimentation environment
 - **fastembed** — lightweight local text embeddings (`BAAI/bge-small-en-v1.5`, 384-dim), no `transformers` dependency
 - **NumPy** — cosine similarity search over chunk embeddings
-- **Ollama + Llama 3.2** — local LLM inference via an OpenAI-compatible endpoint
+- **Llama-3.1-8B + Llama 3.2** — local LLM inference via an OpenAI-compatible endpoint
 - **openai (Python SDK)** — used purely as a client against Ollama's local server
 
 ---
@@ -62,7 +62,7 @@ This was deliberately tested with a set of adversarial prompts (salary questions
 ```
 portfolio-chatbot/
 │
-├── vighnesh_portfolio_chatbot_v2.ipynb   # full pipeline: embed → retrieve → persona prompt → chat
+├── Portfolio_chatbot_v2.ipynb   # full pipeline: embed → retrieve → persona prompt → chat
 └── Adit_knowledge_base.md                # structured knowledge base the bot answers from
 ```
 
@@ -80,6 +80,7 @@ pip install fastembed openai numpy
 # https://ollama.com
 ollama serve            # in one terminal, keep it running
 ollama pull llama3.2    # in another terminal
+ollama pull llama3.1 8B
 ```
 
 **3. Add your knowledge base**
